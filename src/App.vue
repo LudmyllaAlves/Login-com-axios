@@ -1,30 +1,46 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <main>
+    <div class="form">
+      <form id="inputform" name="inputform" method="POST">
+        <fieldset>
+          <label>Digite seu email</label><br>
+          <input type="text" required name="email" id="email" v-model="form.email" :key="email"><br>
+          <label>Digite sua senha</label><br>
+          <input type="text"  required name="senha" id="senha" v-model="form.senha" :key="senha"  ><br>
+          <button @click="postForm()">Enviar</button>
+        </fieldset>
+      </form>
+    </div>
+  </main>
 </template>
+<script>
+const axios = require('axios').default;
+export default{
+  name: 'App',
+  data(){
+    return{
+      form:{
+        email: '',
+        senha: ''
+      },
+    }
+  },
+  methods:{
+    postForm(){
+                let form = document.querySelector('#inputform');
+                axios.post('http://localhost/novologin/novoLogin.php', form)
+                .then(response => {
+                alert(response.data) ;
+                if(response.data == 'logado'){
+                  window.location.href='https://www.google.com/webhp?hl=pt-BR&sa=X&ved=0ahUKEwiV5d7_yrT-AhUWDrkGHbQXBDMQPAgI';
+                }else{
+                  window.location.href='http://localhost:8080/';
+                }
+                
+                })
+                .catch(error => error)
+            },
+    }
+  }
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
