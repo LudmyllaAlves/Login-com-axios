@@ -44,3 +44,25 @@ export default{
   }
 
 </script>
+<style>
+.form{
+  display: flex;
+  position: absolute;
+  background-color: rgb(131, 88, 127);
+  padding: 15px;
+  border-radius: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+}
+.form input{
+  background-color: chartreuse;
+}
+
+@media screen and (max-width: 372px) {
+    .form{
+        display: block;
+    }
+  }
+</style>
